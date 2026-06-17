@@ -59,10 +59,13 @@ app.use((req, res) => {
 });
 
 // Start Server
-const PORT = process.env.PORT || 8000;
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 8000;
+  app.listen(PORT, () => {
+    console.log(
+      `Server running at http://localhost:${PORT}`
+    );
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(
-    `Server running at http://localhost:${PORT}`
-  );
-});
+module.exports = app;
